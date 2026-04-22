@@ -68,13 +68,13 @@ public class Progarm {
         GroupAccount3.JoinDate=LocalDate.now();
         TypeQuestion typeQuestion1 =new TypeQuestion();
         typeQuestion1.id=1;
-        typeQuestion1.Name="Essay";
+        typeQuestion1.Name=TypeQuestion.TypeQuestionName.Esaasy;
         TypeQuestion typeQuestion2 =new TypeQuestion();
         typeQuestion2.id=2;
-        typeQuestion2.Name="Essay";
+        typeQuestion2.Name=TypeQuestion.TypeQuestionName.Esaasy;
         TypeQuestion typeQuestion3 =new TypeQuestion();
         typeQuestion3.id=3;
-        typeQuestion3.Name="Multiple-Choice";
+        typeQuestion3.Name=TypeQuestion.TypeQuestionName.Esaasy;
         CategoryQuestion categoryQuestion1 =new CategoryQuestion();
         categoryQuestion1.id=1;
         categoryQuestion1.Name="java";
