@@ -2,12 +2,12 @@ public class Exercise_1 {
     public void question1(Account[] account){
         System.out.println("question1");
         Account account2= account[1];
-        if(account2.DepartmentID==null)
+        if(account2.departmentID ==null)
         {
             System.out.println("nhan vien chua co phoong ban");
         }
         else {
-            System.out.println("phong ban nhan vien la:"+account2.DepartmentID.name);
+            System.out.println("phong ban nhan vien la:"+account2.departmentID.name);
         }
     }
     public void question2(Account[] account)
@@ -31,12 +31,12 @@ public class Exercise_1 {
     }
     public void question3(Account account2)
     {
-        System.out.println( account2.DepartmentID==null?
-                "Nhân viên này chưa có phòng ban":("Phòng ban của nhân viên này là …"+account2.DepartmentID.name));
+        System.out.println( account2.departmentID ==null?
+                "Nhân viên này chưa có phòng ban":("Phòng ban của nhân viên này là …"+account2.departmentID.name));
     }
     public  void question4(Account account1)
     {
-        System.out.println(account1.PositionID.Name== Position.PositionName.DEV?
+        System.out.println(account1.positionID.Name== Position.PositionName.DEV?
                 "Đây là Develope":"Người này không phải là Developer");
     }
     public  void question5(Group[] group)
@@ -78,7 +78,7 @@ public class Exercise_1 {
     }
     public  void Question7(Account account1)
     {
-        switch (account1.PositionID.Name)
+        switch (account1.positionID.Name)
         {
             case DEV:
                 System.out.println("Đây là Developer");
@@ -92,9 +92,9 @@ public class Exercise_1 {
     {
         for (var acc : account1)
         {
-            System.out.println("Username:" +acc.Username);
-            System.out.println("phòng ban"+acc.DepartmentID.name);
-            System.out.println("chuc vu"+acc.PositionID.Name);
+            System.out.println("Username:" +acc.username);
+            System.out.println("phòng ban"+acc.departmentID.name);
+            System.out.println("chuc vu"+acc.positionID.Name);
         }
     }
     public void question9 (Position[] position1)
@@ -110,8 +110,8 @@ public class Exercise_1 {
         for (int i =0;i<account.length;i++)
         {   if(i==2) break;
             System.out.println("thông tin account thứ: "+i );
-            System.out.println("username: " +account[i].Username);
-            System.out.println("phòng ban: "+account[i].PositionID.Name);
+            System.out.println("username: " +account[i].username);
+            System.out.println("phòng ban: "+account[i].positionID.Name);
         }
     }
     public void question11(Department[] department)
@@ -138,8 +138,8 @@ public class Exercise_1 {
         for (int i =0;i<account.length;i++)
         {   if(i==2) continue;
             System.out.println("thông tin account thứ: "+i );
-            System.out.println("username: " +account[i].Username);
-            System.out.println("phòng ban: "+account[i].PositionID.Name);
+            System.out.println("username: " +account[i].username);
+            System.out.println("phòng ban: "+account[i].positionID.Name);
         }
     }
     public void question14(Account[] account)
@@ -147,8 +147,8 @@ public class Exercise_1 {
         for (int i =0;i<account.length;i++)
         {   if(account[i].id<4) {
             System.out.println("thông tin account thứ: " + i);
-            System.out.println("username: " + account[i].Username);
-            System.out.println("phòng ban: " + account[i].PositionID.Name);
+            System.out.println("username: " + account[i].username);
+            System.out.println("phòng ban: " + account[i].positionID.Name);
             }
         }
     }
@@ -166,8 +166,8 @@ public class Exercise_1 {
         while (i<account.length)
         {   if(i==2) break;
             System.out.println("thông tin account thứ: "+i );
-            System.out.println("username: " +account[i].Username);
-            System.out.println("phòng ban: "+account[i].PositionID.Name);
+            System.out.println("username: " +account[i].username);
+            System.out.println("phòng ban: "+account[i].positionID.Name);
             i++;
         }
     }
@@ -187,8 +187,8 @@ public class Exercise_1 {
      do
         {   if(i==2) break;
             System.out.println("thông tin account thứ: "+i );
-            System.out.println("username: " +account[i].Username);
-            System.out.println("phòng ban: "+account[i].PositionID.Name);
+            System.out.println("username: " +account[i].username);
+            System.out.println("phòng ban: "+account[i].positionID.Name);
             i++;
         }while (i<account.length);
     }

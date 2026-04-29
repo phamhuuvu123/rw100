@@ -6,7 +6,7 @@ public class Exercise3 {
         if(exams==null|| exams.length==0) System.out.println("khong có kỳ thi nào");
         Exam exam1=exams[0];
         System.out.println("mã đề thi: "+exam1.Code);
-        System.out.println("người tạo đề thi:"+exam1.CreatorID.Username);
+        System.out.println("người tạo đề thi:"+exam1.CreatorID.username);
         System.out.println(" tiêu đề: "+exam1.Title);
         System.out.println("thời gian thi:"+exam1.Duration);
         System.out.println("Category : "+exam1.CategoryID);
@@ -19,7 +19,7 @@ public class Exercise3 {
         if(exams==null|| exams.length==0) System.out.println("khong có kỳ thi nào");
         Exam exam1=exams[0];
         System.out.println("mã đề thi: "+exam1.Code);
-        System.out.println("người tạo đề thi:"+exam1.CreatorID.Username);
+        System.out.println("người tạo đề thi:"+exam1.CreatorID.username);
         System.out.println(" tiêu đề: "+exam1.Title);
         System.out.println("thời gian thi:"+exam1.Duration);
         System.out.println("Category : "+exam1.CategoryID);
@@ -32,7 +32,7 @@ public class Exercise3 {
         if(exams==null|| exams.length==0) System.out.println("khong có kỳ thi nào");
         Exam exam1=exams[0];
         System.out.println("mã đề thi: "+exam1.Code);
-        System.out.println("người tạo đề thi:"+exam1.CreatorID.Username);
+        System.out.println("người tạo đề thi:"+exam1.CreatorID.username);
         System.out.println(" tiêu đề: "+exam1.Title);
         System.out.println("thời gian thi:"+exam1.Duration);
         System.out.println("Category : "+exam1.CategoryID);
@@ -44,7 +44,7 @@ public class Exercise3 {
         if(exams==null|| exams.length==0) System.out.println("khong có kỳ thi nào");
         Exam exam1=exams[0];
         System.out.println("mã đề thi: "+exam1.Code);
-        System.out.println("người tạo đề thi:"+exam1.CreatorID.Username);
+        System.out.println("người tạo đề thi:"+exam1.CreatorID.username);
         System.out.println(" tiêu đề: "+exam1.Title);
         System.out.println("thời gian thi:"+exam1.Duration);
         System.out.println("Category : "+exam1.CategoryID);
@@ -57,7 +57,7 @@ public class Exercise3 {
         if(exams==null|| exams.length==0) System.out.println("khong có kỳ thi nào");
         Exam exam1=exams[0];
         System.out.println("mã đề thi: "+exam1.Code);
-        System.out.println("người tạo đề thi:"+exam1.CreatorID.Username);
+        System.out.println("người tạo đề thi:"+exam1.CreatorID.username);
         System.out.println(" tiêu đề: "+exam1.Title);
         System.out.println("thời gian thi:"+exam1.Duration);
         System.out.println("Category : "+exam1.CategoryID);

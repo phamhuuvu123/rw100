@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Exercise2 {
@@ -32,10 +31,10 @@ public class Exercise2 {
         for (var acc: account)
         {
             System.out.println("id:" +acc.id);
-            System.out.println("tên là :" +acc.Username);
-            System.out.println("tên chức vụ: "+acc.PositionID.Name);
-            System.out.println("tên phong ban: "+acc.DepartmentID.name);
-            System.out.println("ngày tạo"+acc.CreateDate);
+            System.out.println("tên là :" +acc.username);
+            System.out.println("tên chức vụ: "+acc.positionID.Name);
+            System.out.println("tên phong ban: "+acc.departmentID.name);
+            System.out.println("ngày tạo"+acc.createDate);
         }
     }
 }

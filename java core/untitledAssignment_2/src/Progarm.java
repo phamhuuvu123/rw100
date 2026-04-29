@@ -1,8 +1,8 @@
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 public class Progarm {
     public static void main(String[] args) {
@@ -18,30 +18,30 @@ public class Progarm {
         Position Position1 = new Position() ;
         Position1.id=1;
         Position1.Name= Position.PositionName.DEV;
-        Position Position2 = new Position() ;
-        Position2.id=2;
-        Position2.Name= Position.PositionName.TEST;
+        Position position2 = new Position() ;
+        position2.id=2;
+        position2.Name= Position.PositionName.TEST;
         Position Position3 = new Position() ;
         Position3.id=3;
         Position3.Name= Position.PositionName.PM;
         Account account1= new Account();
         account1.id=1;
-        account1.PositionID=Position1;
-        account1.DepartmentID=Deparment1;
-        account1.Username="huuvu";
-        account1.CreateDate=LocalDate.now();
+        account1.positionID =Position1;
+        account1.departmentID =Deparment1;
+        account1.username="huuvu";
+        account1.createDate=LocalDate.now();
         Account account2= new Account();
         account2.id=2;
-        account2.PositionID=Position1;
-        account2.DepartmentID=Deparment2;
-        account2.Username="nguyenvana";
-        account2.CreateDate=LocalDate.now();
+        account2.positionID =Position1;
+        account2.departmentID =Deparment2;
+        account2.username="nguyenvana";
+        account2.createDate=LocalDate.now();
         Account account3= new Account();
         account3.id=3;
-        account3.PositionID=Position3;
-        account3.DepartmentID=Deparment3;
-        account3.Username="nguyenvanb";
-        account3.CreateDate=LocalDate.now();
+        account3.positionID =Position3;
+        account3.departmentID =Deparment3;
+        account3.username="nguyenvanb";
+        account3.createDate=LocalDate.now();
         Group group1 =new Group();
         group1.id=1;
         group1.Name="group1";
@@ -90,10 +90,11 @@ public class Progarm {
         CategoryQuestion categoryQuestion2 =new CategoryQuestion();
         categoryQuestion2.id=2;
         categoryQuestion2.Name="php";
-        CategoryQuestion categoryQuestion3 =new CategoryQuestion();
-        categoryQuestion3.id=3;
-        categoryQuestion3.Name="c++";
+        CategoryQuestion categoryquestion3 =new CategoryQuestion();
+        categoryquestion3.id=3;
+        categoryquestion3.Name="c++";
         Question question1 =new Question();
+
         question1.id=1;
         question1.CategoryID=categoryQuestion1;
         question1.Content="java là gì";
@@ -162,18 +163,18 @@ public class Progarm {
         ExamQuestion examQuestion3 =new ExamQuestion();
         examQuestion3.Examid=exam3;
         examQuestion3.QuestionId=question1;
-        System.out.println("họ và tên: " + account1.Username );
-        System.out.println("ngày tạo: " +account1.CreateDate);
+        System.out.println("họ và tên: " + account1.username );
+        System.out.println("ngày tạo: " +account1.createDate);
         System.out.println( "phòng ban: "+ Deparment1.name);
         System.out.printf("chức vụ:"+Position1.Name);
         System.out.println("tên group" + group1.Name);
-        System.out.println("người tạo group"+ account1.Username);
+        System.out.println("người tạo group"+ account1.username);
         System.out.println("ngày tạo group"+group1.CreateDate);
         System.out.println("ngày tham gia group"+ GroupAccount1.JoinDate);
         System.out.println("Noi dung câu hỏi"+question1.Content);
         System.out.println("dịnh danh câu hỏi"+categoryQuestion1.Name );
         System.out.println("ten câu hỏi"+typeQuestion1.Name);
-        System.out.println("nguoi tao ra cau hoi"+account1.Username);
+        System.out.println("nguoi tao ra cau hoi"+account1.username);
         System.out.println("ngay tao ra cau hoi"+question1.CreateDate);
         System.out.println("noi dung cau tra loi"+answer1.Content);
         System.out.println("dinh danh cau hoi"+ answer1.QuestionID);
@@ -187,10 +188,6 @@ public class Progarm {
         System.out.println("định danh đề thi "+examQuestion1.Examid);
         System.out.println("định dnah câu hỏi"+examQuestion1.QuestionId);
 
-            LocalDateTime time=LocalDateTime.now();
-            System.out.println(time);
-        DateTimeFormatter a=DateTimeFormatter.ofPattern("MM//dd");
-        String formatDate =exam1.CreateDate.format(a);
-        System.out.println("ngay tao:" +formatDate);
+
     }
 }

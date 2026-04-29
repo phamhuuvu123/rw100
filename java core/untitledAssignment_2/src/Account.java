@@ -2,10 +2,11 @@ import java.time.LocalDate;
 
 public class Account {
     int id;
-    String Username;
-   Department DepartmentID;
-   Position PositionID;
-   LocalDate CreateDate;
+    String email;
+    String username;
+   Department departmentID;
+   Position positionID;
+   LocalDate createDate;
    Group group [];
 
 }
