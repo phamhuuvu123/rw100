@@ -1,8 +1,8 @@
 package Backend;
 
-import empity.Account;
-import empity.DePartment;
-import empity.Position;
+import entity.Account;
+import entity.DePartment;
+import entity.Position;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -149,15 +149,20 @@ public class quanlyphongban {
                 System.out.println("nhập tên account cần xóa");
                 String nameacc=scanner.nextLine();
                 boolean checkacc2 = false;
+                List<Account> deleteacc1 = new ArrayList<>();
+
                 for (Account acc :accounts)
                 {
                     if(acc.getFullName().equals(nameacc))
                     {
                         System.out.println("tên acc cần xóa là "+nameacc);
                         checkacc2=true;
+                        deleteacc1.add(acc);
                     }
                 }
                 if(!checkacc2) System.out.println(" tên accoung không tồn tại");
+                accounts.removeAll(deleteacc1);
+
                 break;
             case"10":
                 return;

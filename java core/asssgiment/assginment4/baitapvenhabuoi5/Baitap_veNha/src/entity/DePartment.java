@@ -1,4 +1,4 @@
-package empity;
+package entity;
 
 public class DePartment {
     private int id;

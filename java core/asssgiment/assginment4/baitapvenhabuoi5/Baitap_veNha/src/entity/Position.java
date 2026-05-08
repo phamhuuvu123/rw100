@@ -1,8 +1,8 @@
-package empity;
+package entity;
 
 public class Position {
     private int id;
-    private String name;
+    private String  name;
     public Position(){}
 
     public int getId() {

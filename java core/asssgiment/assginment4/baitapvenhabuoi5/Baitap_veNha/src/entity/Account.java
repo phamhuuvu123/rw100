@@ -1,4 +1,4 @@
-package empity;
+package entity;
 
 import java.time.LocalDate;
 
