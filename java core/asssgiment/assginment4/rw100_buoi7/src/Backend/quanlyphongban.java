@@ -3,6 +3,7 @@ package Backend;
 import entity.Account;
 import entity.DePartment;
 import entity.Position;
+import enums.Enums;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,7 +47,7 @@ public class quanlyphongban {
                 scanner.nextLine();
                 System.out.println("mời nhập tên chức vụ");
                 String chucvu=scanner.nextLine();
-                Position position = new Position(idPo,chucvu);
+                Position position = new Position(idPo, Enums.Positionanme.valueOf(chucvu));
                 positions.add(position);
                 break;
             case "3":

@@ -1,7 +1,10 @@
 package entity;
+
+import enums.Enums;
+
 public class Position {
     private int id;
-    private String  name;
+    private Enums.Positionanme name;
     public Position(){}
 
     public int getId() {
@@ -12,12 +15,8 @@ public class Position {
         this.id = id;
     }
 
-    public String getName() {
+    public Enums.Positionanme getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -28,7 +27,7 @@ public class Position {
                 '}';
     }
 
-    public Position(int id, String name) {
+    public Position(int id, Enums.Positionanme name) {
         this.id = id;
         this.name = name;
     }

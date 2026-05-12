@@ -4,6 +4,6 @@ public enum Enums {
     ;
     public enum Positionanme
     {
-        PM,TEST,DEV;
+        PM,TEST,DEV,SCRUM_MASTER;
     };
 }
