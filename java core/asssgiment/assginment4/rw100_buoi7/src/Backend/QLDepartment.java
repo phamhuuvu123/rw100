@@ -158,7 +158,8 @@ public class QLDepartment {
         {
             e.printStackTrace();
         }
-        return false;}
+        return false;
+    }
         public static boolean updateDepartment(int id ,String deletename)
         {
             try{

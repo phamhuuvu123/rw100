@@ -1,11 +1,6 @@
-package Frontendt;
-
-import Backend.QLDepartment;
-import Backend.QlAccount;
-import entity.DePartment;
+package Frontend;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or

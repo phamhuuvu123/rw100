@@ -1,14 +1,15 @@
-package Frontend;
+package org.example.frontend;
 
-import Backend.QlAccount;
-import entity.Account;
+import org.example.backend.controller.Accountcontroller;
+import org.example.entity.Account;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class AccountFunction {
     private static Scanner scanner = new Scanner(System.in);
-    public static void run() throws ClassNotFoundException {
+    private static  Accountcontroller accountcontroller = new Accountcontroller();
+    public  void run()  {
         while (true) {
             System.out.println("=== Mời bạn chọn chức năng ===");
             System.out.println("1. Xem danh sach Account");
@@ -21,8 +22,8 @@ public class AccountFunction {
             String choice = scanner.nextLine();
             switch (choice) {
                 case "1":
-                    List<Account> accounts = QlAccount.showAccount();
-                  showAccount(accounts);
+                    List<Account> accounts  =accountcontroller.findAll();
+                   this.showAccount(accounts);
                     break;
                 case "2":
                     insertAccout();
@@ -34,7 +35,7 @@ public class AccountFunction {
                     deleteAccount();
                     break;
                 case "5":
-                    findAccoutnname();
+                   findAccoutById();
                     break;
                 case "6":
                     return;
@@ -44,42 +45,18 @@ public class AccountFunction {
             }
         }
     }
-    public static void showAccount(List<Account> Acount) {
+    public void showAccount(List<Account> Acount) {
 
         for (Account accounts : Acount) {
-            System.out.printf("|%5s|%20s|\n", accounts.getId(), accounts.getEmail(),accounts.getFullName()
-            ,accounts.getDePartmentname(),accounts.getPositionname());
+            System.out.printf("|%5s|%20s|\n", accounts.getId(),accounts.getUesername(), accounts.getEmail(),accounts.getFullName()
+                    ,accounts.getDePartmentname(),accounts.getPositionname());
         }
         if (Acount.size() == 0) {
             System.out.println("Không tìm thấy");
         }
 
     }
-    public static void findAccoutnname() throws ClassNotFoundException {
-        System.out.println("Nhập ID cần tìm: ");
-        String username = scanner.nextLine();
-        scanner.nextLine();
-
-        System.out.println("Nhập tên phòng ban cần tìm: ");
-        String fullname = scanner.nextLine();
-       List<Account> accounts = QlAccount.findByfullnameAndUseName(username,fullname);
-        showAccount(accounts);
-    }
-    public static void updateaccount() throws ClassNotFoundException {
-        System.out.println("Nhập ID acount cần sửa: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Nhập tên username cần sửa: ");
-        String name = scanner.nextLine();
-        boolean check = QlAccount.updateAccount(id,name);
-        if (check) {
-            System.out.println("Update thành công");
-        } else {
-            System.out.println("Update không thành công");
-        }
-    }
-    public static void insertAccout() throws ClassNotFoundException {
+    public  void insertAccout()  {
         System.out.println("Nhập tên Email: ");
         String Email = scanner.nextLine();
         System.out.println(" nhập fullname ");
@@ -92,22 +69,44 @@ public class AccountFunction {
         System.out.println("nhập Id position ");
         int idPo= scanner.nextInt();
         scanner.nextLine();
-        boolean check = QlAccount.createAccount(Email,username,fullname,idDe,idPo);
+        boolean check = accountcontroller.createAccount(Email,username,fullname,idDe,idPo);
         if (check) {
             System.out.println("Thêm mới thành công");
         } else {
             System.out.println("Thêm không thành công");
         }
     }
+    public  void updateaccount()  {
+        System.out.println("Nhập ID acount cần sửa: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
-    public static void deleteAccount() throws ClassNotFoundException {
-        System.out.println("Nhập tên Account cần xóa: ");
+        System.out.println("Nhập tên username cần sửa: ");
         String name = scanner.nextLine();
-        boolean check = QlAccount.deleteAcount(name);
+        boolean check = accountcontroller.updateAccount(id,name);
+        if (check) {
+            System.out.println("Update thành công");
+        } else {
+            System.out.println("Update không thành công");
+        }
+    }
+    public void deleteAccount()  {
+        System.out.println("Nhập ID Account cần xóa: ");
+        int id= scanner.nextInt();
+        scanner.nextLine();
+        boolean check = accountcontroller.deleteAccount(id);
         if (check) {
             System.out.println("Xóa thành công");
         } else {
             System.out.println("Xóa không thành công");
         }
+    }
+    public  void findAccoutById()  {
+        System.out.println("Nhập ID cần tìm: ");
+        int  id= scanner.nextInt();
+        scanner.nextLine();
+
+        List<Account> accounts = accountcontroller.findById(id);
+       showAccount(accounts);
     }
 }

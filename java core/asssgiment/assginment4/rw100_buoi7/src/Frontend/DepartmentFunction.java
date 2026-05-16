@@ -1,4 +1,4 @@
-package Frontendt;
+package Frontend;
 
 import Backend.QLDepartment;
 import entity.DePartment;
