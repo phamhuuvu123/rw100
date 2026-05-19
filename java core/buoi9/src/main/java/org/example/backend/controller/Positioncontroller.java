@@ -33,4 +33,12 @@ public class Positioncontroller {
         List<Position> positions =new PositionServiceImpl().findById(id);
         return positions;
     }
+    public boolean checkExit(Integer id)
+    {
+        return positionservice.checkExitId(id);
+    }
+    public boolean checkExitIdAndName(String name, Integer id)
+    {
+        return  positionservice.checkExitIdandname(name,id);
+    }
 }

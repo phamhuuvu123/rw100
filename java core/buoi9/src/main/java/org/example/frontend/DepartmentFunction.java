@@ -4,6 +4,7 @@ import org.example.backend.controller.Departmentcontroller;
 import org.example.entity.DePartment;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class DepartmentFunction {
@@ -61,6 +62,20 @@ public class DepartmentFunction {
     public  void insertDepartment() {
         System.out.println("Nhập tên phòng ban: ");
         String name = scanner.nextLine();
+        while (true) {
+            if (Objects.isNull(name) || name.trim().isEmpty()) {
+                System.out.println("nhâp lại tên");
+                continue;
+            } else {
+                if(departmentcontroller.checkExitsIdandName(name,null))
+                {
+                    System.out.println("tên đã tồn tại");
+                }
+
+             }
+            break;
+        }
+
     boolean check= departmentcontroller.insertDepartment(name);
         if (check) {
             System.out.println("Thêm mới thành công");
@@ -72,6 +87,20 @@ public class DepartmentFunction {
         System.out.println("Nhập tên phòng ban cần xóa: ");
         int id = scanner.nextInt();
         scanner.nextLine();
+        while (true)
+        {
+            if(id<0)
+            {
+                System.out.println("id không hợp lệ");
+                continue;
+            }
+            if (departmentcontroller.checkExitsId(id))
+            {
+                System.out.println("id không tồn tại");
+                continue;
+            }
+            break;
+        }
         boolean check = departmentcontroller.deleteDepartment(id);
         if (check) {
             System.out.println("Xóa thành công");
@@ -85,7 +114,25 @@ public class DepartmentFunction {
         scanner.nextLine();
 
         System.out.println("Nhập tên phòng ban cần sửa: ");
-        String name = scanner.nextLine();
+        String name="";
+        while ( true)
+        {
+            name =scanner.nextLine();
+            if(Objects.isNull(name)||name.trim().isEmpty())
+            {
+                System.out.println("nhập lại tên");
+                continue;
+            }
+            else {
+                if(departmentcontroller.checkExitsIdandName(name,id))
+                {
+                    System.out.println("tên này đã được sử dụng ,nhập lại");
+                    continue;
+                }
+            }
+            break;
+
+        }
         boolean check = departmentcontroller.updateDepartmetn(id, name);
         if (check) {
             System.out.println("Update thành công");

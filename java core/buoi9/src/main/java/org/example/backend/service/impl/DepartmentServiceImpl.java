@@ -40,4 +40,15 @@ public class DepartmentServiceImpl implements IDdepartmentservice {
         }
         return false;
     }
+
+    @Override
+    public boolean checkExitId(Integer id) {
+        return departmentRepository.checkExitId(id);
+    }
+
+    @Override
+    public boolean checkExitIdAndName(String name, Integer id) {
+
+        return departmentRepository.checkExitIdAndName(name,id);
+    }
 }

@@ -3,6 +3,8 @@ package org.example.backend.controller;
 import org.example.backend.service.IAccountservice;
 import org.example.backend.service.impl.AccountserviceImpl;
 import org.example.entity.Account;
+import org.example.entity.DePartment;
+import org.example.entity.Position;
 
 import java.util.List;
 
@@ -34,4 +36,14 @@ public class Accountcontroller {
         List<Account> accounts =accountservice.findById(id);
         return accounts;
     }
+    public boolean check(String uesername, String fullname, String email, DePartment dePartment, Position position) {
+        return accountservice.check(uesername,fullname,email,dePartment,position);
+    }
+    public boolean checkExitIdAndName(String name, Integer id) {
+        return accountservice.checkExitIdAndName(name,id);
+    }
+    public boolean checkId(int id) {
+        return accountservice.checkId(id);
+    }
+
 }

@@ -3,6 +3,7 @@ import org.example.backend.controller.Positioncontroller;
 import org.example.entity.Position;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PositionFuncion {
@@ -58,7 +59,20 @@ public class PositionFuncion {
         scanner.nextLine();
 
         System.out.println("Nhập tên chức vụ cần sửa: ");
-        String name = scanner.nextLine();
+        String name = "";
+        while (true)
+        {
+            name =scanner.nextLine();
+            if(Objects.isNull(name)||name.trim().isEmpty())
+            {
+                System.out.println("nhập lại chức vụ ");
+            }
+            if(positioncontroller.checkExitIdAndName(name,id))
+            {
+                System.out.println("nhập lại chức vụ");
+            }
+            break;
+        }
         boolean check = positioncontroller.updatePosition(id,name);
         if (check) {
             System.out.println("Update thành công");
@@ -70,6 +84,20 @@ public class PositionFuncion {
         System.out.println("Nhập Id chức vụ cần xóa: ");
         int id = scanner.nextInt();
         scanner.nextLine();
+        while (true)
+        {
+            if(id<0)
+            {
+                System.out.println("id không được âm");
+                continue;
+            }
+            if(positioncontroller.checkExit(id))
+            {
+                System.out.println("id không tôn tại ,nhập lại");
+                continue;
+            }
+            break;
+        }
         boolean check = positioncontroller.deletePosition(id);
         if (check) {
             System.out.println("Xóa thành công");
@@ -79,7 +107,22 @@ public class PositionFuncion {
     }
     public void createPosition()  {
         System.out.println("Nhập tên Chức vụ: ");
-        String name = scanner.nextLine();
+        String name = "";
+        while (true)
+        {
+            name = scanner.nextLine();
+            if(Objects.isNull(name)||name.trim().isEmpty())
+            {
+                System.out.println("nhập lại chức vụ");
+                continue;
+            }
+            if(positioncontroller.checkExitIdAndName(name,null))
+            {
+                System.out.println("chức vụ đã tồn tại ");
+                continue;
+            }
+            break;
+        }
         boolean check = positioncontroller.createPosition(name);
         if (check) {
             System.out.println("Thêm mới thành công");

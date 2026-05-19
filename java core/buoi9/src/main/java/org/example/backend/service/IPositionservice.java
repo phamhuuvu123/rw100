@@ -10,4 +10,6 @@ public interface IPositionservice {
     boolean deletePosition(int id);
     boolean updatePosition(int id,String name);
    List<Position> findById(int id);
+   boolean checkExitId(Integer id);
+   boolean checkExitIdandname(String name,Integer id);
 }

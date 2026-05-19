@@ -32,4 +32,11 @@ public class Departmentcontroller {
         if(check!=false) return true;
         return false;
     }
+    public boolean checkExitsId(Integer id)
+    { return departmentService.checkExitId(id);
+    }
+    public  boolean checkExitsIdandName(String name, Integer id)
+    {
+        return  departmentService.checkExitIdAndName(name,id);
+    }
 }

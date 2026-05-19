@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AccountRepository implements IAccountRepository {
     @Override
@@ -148,5 +149,105 @@ public class AccountRepository implements IAccountRepository {
         }
         return accounts;
     }
+
+    @Override
+    public boolean check(String uesername, String fullname, String email, DePartment dePartment, Position position) {
+        boolean check= false ;
+        try{
+            Connection connection =JBDcutils.getConnection();
+            String sql ="select * from `account`\n" +
+                    "where account_id ?";
+            if(Objects.nonNull(fullname))
+            {
+                sql+= " and full_name =?";
+            }
+            if(Objects.nonNull(email))
+            {
+                sql+=" and email=?";
+            }
+            if(Objects.nonNull(dePartment))
+            {
+                sql+= "department_id= ?";
+            }
+            if(Objects.nonNull(position))
+            {
+                sql+="position_id= ?";
+            }
+            PreparedStatement statement= connection.prepareStatement(sql);
+            statement.setString(1,uesername);
+            if(Objects.nonNull(fullname))
+            {
+                statement.setString(2,fullname);
+            }
+            if(Objects.nonNull(email))
+            {
+                statement.setString(3,fullname);
+            }
+            if (Objects.nonNull(dePartment))
+            {
+                statement.setInt(3,dePartment.getId());
+            }
+            if(Objects.nonNull(position))
+            {
+                statement.setInt(4,position.getId());
+            }
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()) check= true;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+    @Override
+    public boolean checkExitIdAndName(String name, Integer id) {
+        boolean check = false;
+        try{
+            Connection connection=JBDcutils.getConnection();
+            String sql= "select * from `account`\n" +
+                    "where username ? ;";
+            if(Objects.nonNull(id))
+            {
+                sql+=" and account_id!= ?";
+            }
+            PreparedStatement statement= connection.prepareStatement(sql);
+            statement.setString(1,name);
+            if(Objects.nonNull(id))
+            {
+                statement.setInt(2,id);
+            }
+            ResultSet resultSet =statement.executeQuery();
+            if(resultSet.next())
+            {
+                check =true;
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+    @Override
+    public boolean checkId(int id) {
+        boolean check= false;
+        try {
+            Connection connection=JBDcutils.getConnection();
+            String sql ="select * from `account`\n" +
+                    "where account_id ?; ";
+            PreparedStatement statement=connection.prepareStatement(sql);
+            statement.setInt(1,id);
+            ResultSet rs= statement.executeQuery();
+            if(rs.next())
+            { check =true;
+                }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return  check;
+    }
+
 
 }

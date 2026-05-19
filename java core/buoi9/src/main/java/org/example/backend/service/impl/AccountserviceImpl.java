@@ -4,6 +4,8 @@ import org.example.backend.repository.IAccountRepository;
 import org.example.backend.repository.impl.AccountRepository;
 import org.example.backend.service.IAccountservice;
 import org.example.entity.Account;
+import org.example.entity.DePartment;
+import org.example.entity.Position;
 
 import java.util.List;
 
@@ -35,6 +37,21 @@ public class AccountserviceImpl implements IAccountservice {
     public List<Account> findById(int id) {
         List<Account> accounts =accountRepository.findByID(id);
         return accounts;
+    }
+
+    @Override
+    public boolean checkExitIdAndName(String name, Integer id) {
+        return accountRepository.checkExitIdAndName(name,id);
+    }
+
+    @Override
+    public boolean check(String uesername, String fullname, String email, DePartment dePartment, Position position) {
+        return accountRepository.check(uesername,fullname,email,dePartment,position);
+    }
+
+    @Override
+    public boolean checkId(int id) {
+        return accountRepository.checkId(id);
     }
 
 }

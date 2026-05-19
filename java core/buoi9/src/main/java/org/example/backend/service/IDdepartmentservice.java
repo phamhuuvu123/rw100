@@ -9,4 +9,6 @@ public interface IDdepartmentservice {
     boolean insertDepartment(String name);
     boolean deleteDepartment(int id);
     boolean updateDepartment(int id, String name);
+    boolean checkExitId(Integer id);
+    boolean checkExitIdAndName(String name,Integer id);
 }

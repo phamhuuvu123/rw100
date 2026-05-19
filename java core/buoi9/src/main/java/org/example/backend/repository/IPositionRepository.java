@@ -10,5 +10,6 @@ public interface IPositionRepository {
     boolean deletePosition(int id);
     boolean updatePosition(int id,String name);
     List<Position> findById(int id);
-
+    boolean checkExitId(Integer id);
+    boolean checkExitIdAndName(String name,Integer id);
 }

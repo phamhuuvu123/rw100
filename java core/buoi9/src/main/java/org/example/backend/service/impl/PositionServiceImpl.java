@@ -8,39 +8,47 @@ import org.example.entity.Position;
 import org.example.backend.repository.IPositionRepository;
 import java.util.List;
 
-public class PositionServiceImpl implements IPositionRepository, IPositionservice {
+public class PositionServiceImpl implements  IPositionservice {
     private IPositionRepository positionRepository = new PositionRepositoryImpl();
 
     @Override
     public List<Position> findAll() {
-            List<Position> positions =  positionRepository.findAll();
-        return positions    ;
+        List<Position> positions = positionRepository.findAll();
+        return positions;
     }
 
     @Override
     public boolean createPosition(String name) {
-       boolean check = positionRepository.createPosition(name);
-       return check;
+        boolean check = positionRepository.createPosition(name);
+        return check;
     }
 
 
     @Override
     public boolean deletePosition(int id) {
-        boolean check =positionRepository.deletePosition(id);
+        boolean check = positionRepository.deletePosition(id);
         return check;
     }
 
     @Override
     public boolean updatePosition(int id, String name) {
-        boolean check =positionRepository.updatePosition(id,name);
+        boolean check = positionRepository.updatePosition(id, name);
         return check;
     }
 
     @Override
     public List<Position> findById(int id) {
-        List<Position> positions =  positionRepository.findById(id);
-        return positions    ;
+        List<Position> positions = positionRepository.findById(id);
+        return positions;
     }
 
+    @Override
+    public boolean checkExitId(Integer id) {
+        return positionRepository.checkExitId(id);
+    }
 
+    @Override
+    public boolean checkExitIdandname(String name, Integer id) {
+        return positionRepository.checkExitIdAndName(name, id);
+    }
 }

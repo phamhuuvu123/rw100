@@ -4,12 +4,10 @@ import org.example.backend.repository.IDepartmentRepository;
 import org.example.entity.DePartment;
 import org.example.utlis.JBDcutils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DepartmentRepositoryImpl implements IDepartmentRepository {
 
@@ -87,4 +85,57 @@ public class DepartmentRepositoryImpl implements IDepartmentRepository {
         }
         return false;
     }
+
+    @Override
+    public boolean checkExitId(Integer id) {
+        boolean check = false;
+        try {
+            // b1: kết nối đến DB
+            Connection connection = JBDcutils.getConnection();
+            // b2: lấy dữ liệu từ bảng department
+            String sql = "select * from department where department_id = ? ";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();// thực thi câu lệnh sql và gán bảng trả ra vào ResultSet rs
+            if (rs.next()) {// lặp qua qua từng dòng của rs
+                check = true;
+            }
+            // đóng các kết nối
+            JBDcutils.closeConnection(connection, preparedStatement, rs);
+        } catch (Exception e) {// show các lỗi lien quan đén logic xử lý
+            e.printStackTrace();// show ra exception
+        }
+        return check;
+    }
+
+    @Override
+    public boolean checkExitIdAndName(String name, Integer id) {
+        boolean check = false;
+        try{
+            Connection connection =JBDcutils.getConnection();
+            String sql= "select * from department where department_name=?";
+            if(Objects.nonNull(id))
+            {
+                sql+= " and department_id!= ?";
+            }
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,name);
+            if(Objects.nonNull(id)){
+                statement.setInt(2,id);
+            }
+            ResultSet rs= statement.executeQuery();
+            if(rs.next())
+            {
+                check =true;
+            }
+        }catch ( Exception e)
+        {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+
 }
