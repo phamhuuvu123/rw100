@@ -14,6 +14,7 @@ public interface IAccountservice {
     boolean updateAccount(int id, String name);
     List<Account> findById(int id);
     boolean checkExitIdAndName(String name,Integer id);
-    boolean check (String uesername, String fullname, String email, DePartment dePartment, Position position);
     boolean checkId(int id);
+    boolean checkusername (String uesername);
+    boolean checkEmail(String email);
 }

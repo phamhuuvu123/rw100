@@ -43,15 +43,19 @@ public class AccountserviceImpl implements IAccountservice {
     public boolean checkExitIdAndName(String name, Integer id) {
         return accountRepository.checkExitIdAndName(name,id);
     }
-
-    @Override
-    public boolean check(String uesername, String fullname, String email, DePartment dePartment, Position position) {
-        return accountRepository.check(uesername,fullname,email,dePartment,position);
-    }
-
     @Override
     public boolean checkId(int id) {
         return accountRepository.checkId(id);
+    }
+
+    @Override
+    public boolean checkusername(String uesername) {
+        return accountRepository.checkusername(uesername);
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        return accountRepository.checkEmail(email);
     }
 
 }

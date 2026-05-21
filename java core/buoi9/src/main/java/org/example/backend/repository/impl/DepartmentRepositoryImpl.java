@@ -89,23 +89,27 @@ public class DepartmentRepositoryImpl implements IDepartmentRepository {
     @Override
     public boolean checkExitId(Integer id) {
         boolean check = false;
+        Connection connection =null;
+        PreparedStatement preparedStatement =null;
+        ResultSet rs= null;
         try {
             // b1: kết nối đến DB
-            Connection connection = JBDcutils.getConnection();
+            connection = JBDcutils.getConnection();
             // b2: lấy dữ liệu từ bảng department
             String sql = "select * from department where department_id = ? ";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
-
-            ResultSet rs = preparedStatement.executeQuery();// thực thi câu lệnh sql và gán bảng trả ra vào ResultSet rs
+            rs = preparedStatement.executeQuery();// thực thi câu lệnh sql và gán bảng trả ra vào ResultSet rs
             if (rs.next()) {// lặp qua qua từng dòng của rs
                 check = true;
             }
             // đóng các kết nối
-            JBDcutils.closeConnection(connection, preparedStatement, rs);
+
         } catch (Exception e) {// show các lỗi lien quan đén logic xử lý
             e.printStackTrace();// show ra exception
+        }finally {
+            JBDcutils.closeConnection(connection,preparedStatement,rs);
         }
         return check;
     }
@@ -113,19 +117,22 @@ public class DepartmentRepositoryImpl implements IDepartmentRepository {
     @Override
     public boolean checkExitIdAndName(String name, Integer id) {
         boolean check = false;
+        Connection connection =null;
+        PreparedStatement statement =null;
+        ResultSet rs =null;
         try{
-            Connection connection =JBDcutils.getConnection();
+          connection =JBDcutils.getConnection();
             String sql= "select * from department where department_name=?";
             if(Objects.nonNull(id))
             {
                 sql+= " and department_id!= ?";
             }
-            PreparedStatement statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             statement.setString(1,name);
             if(Objects.nonNull(id)){
                 statement.setInt(2,id);
             }
-            ResultSet rs= statement.executeQuery();
+            rs= statement.executeQuery();
             if(rs.next())
             {
                 check =true;
@@ -133,6 +140,8 @@ public class DepartmentRepositoryImpl implements IDepartmentRepository {
         }catch ( Exception e)
         {
             e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,rs);
         }
         return check;
     }

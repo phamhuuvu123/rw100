@@ -13,7 +13,8 @@ public interface IAccountRepository {
     boolean deleteAccount(int id);
     boolean updateAccount(int id,String name);
     List<Account> findByID(int id);
-    boolean check (String uesername, String fullname, String email, DePartment dePartment,Position position);
+    boolean checkusername (String uesername);
     boolean checkExitIdAndName(String name,Integer id);
     boolean checkId(int id);
+    boolean checkEmail(String email);
 }

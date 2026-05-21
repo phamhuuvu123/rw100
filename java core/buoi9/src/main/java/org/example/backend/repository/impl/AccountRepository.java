@@ -19,14 +19,17 @@ public class AccountRepository implements IAccountRepository {
     @Override
     public List<Account> findAll() {
         List<Account> accounts = new ArrayList<>();
+        Connection connection=null;
+        Statement statement=null;
+        ResultSet rs =null;
         try{
-            Connection connection = JBDcutils.getConnection();
+            connection = JBDcutils.getConnection();
             String sql ="select acc.*,de.department_name,po.position_name \n" +
                     "from  `account` as acc\n" +
                     "left join department as de on de.department_id=acc.department_id\n" +
                     "left join position as po on po.position_id=acc.position_id;  ";
-            Statement statement =connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+            statement =connection.createStatement();
+            rs = statement.executeQuery(sql);
 
             while (rs.next())
             {
@@ -54,16 +57,21 @@ public class AccountRepository implements IAccountRepository {
         catch  (Exception e) {// crtl   alt   L
             e.printStackTrace();
         }
+        finally {
+            JBDcutils.closeConnection(connection,statement,rs);
+        }
         return accounts;
     }
 
     @Override
     public boolean createAccount(String Emailname, String username, String fullname, int idDE, int idPO) {
+        Connection connection=null;
+        PreparedStatement statement= null;
         try{
-            Connection connection = JBDcutils.getConnection();
+            connection = JBDcutils.getConnection();
             String sql="insert into `account`(email,username,full_name,department_id,position_id)\n" +
                     "values (?, ?,? ,?,?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             statement.setString(1,Emailname);
             statement.setString(2,username);
             statement.setString(3,fullname);
@@ -75,33 +83,41 @@ public class AccountRepository implements IAccountRepository {
         }catch (Exception e)
         {
             e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,null);
         }
         return false;
     }
 
     @Override
     public boolean deleteAccount(int id) {
+        Connection connection =null;
+        PreparedStatement statement=null;
         try{
-            Connection connection = JBDcutils.getConnection();
-            String sql="delete from account where account_id = ?;";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            connection = JBDcutils.getConnection();
+            String sql="delete from  account where account_id = ?;";
+            statement = connection.prepareStatement(sql);
             statement.setInt(1,id);
             int c=statement.executeUpdate();
-            JBDcutils.closeConnection(connection,statement,null);
             return c>0;
         }catch (Exception e)
         {
             e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,null);
         }
         return false;
     }
 
     @Override
     public boolean updateAccount(int id, String name) {
+        Connection connection = null;
+        PreparedStatement statement=null;
+
         try{
-            Connection connection = JBDcutils.getConnection();
+            connection = JBDcutils.getConnection();
             String sql="update account set  username =? where account_id =?";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             statement.setString(1,name );
             statement.setInt(2,id);
             int c=statement.executeUpdate();
@@ -110,6 +126,8 @@ public class AccountRepository implements IAccountRepository {
         }catch (Exception e)
         {
             e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,null);
         }
         return false;
     }
@@ -117,13 +135,16 @@ public class AccountRepository implements IAccountRepository {
     @Override
     public List<Account> findByID(int id) {
         List<Account> accounts = new ArrayList<>();
+        Connection connection =null;
+        PreparedStatement statement =null;
+        ResultSet rs =null;
         try{
-            Connection connection =JBDcutils.getConnection();
+            connection =JBDcutils.getConnection();
             String sql ="select *from `account`\n" +
                     "where account_id like ? ; ";
-            PreparedStatement statement =connection.prepareStatement(sql);
+            statement =connection.prepareStatement(sql);
             statement.setInt(1,id);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
 
             while (rs.next())
             {
@@ -147,107 +168,120 @@ public class AccountRepository implements IAccountRepository {
         catch  (Exception e) {
             e.printStackTrace();
         }
+        finally {
+            JBDcutils.closeConnection(connection,statement,rs);
+        }
         return accounts;
     }
 
     @Override
-    public boolean check(String uesername, String fullname, String email, DePartment dePartment, Position position) {
+    public boolean checkusername(String uesername) {
         boolean check= false ;
+        Connection connection =null;
+        PreparedStatement statement=null;
+        ResultSet rs =null;
         try{
-            Connection connection =JBDcutils.getConnection();
+            connection =JBDcutils.getConnection();
             String sql ="select * from `account`\n" +
-                    "where account_id ?";
-            if(Objects.nonNull(fullname))
-            {
-                sql+= " and full_name =?";
-            }
-            if(Objects.nonNull(email))
-            {
-                sql+=" and email=?";
-            }
-            if(Objects.nonNull(dePartment))
-            {
-                sql+= "department_id= ?";
-            }
-            if(Objects.nonNull(position))
-            {
-                sql+="position_id= ?";
-            }
-            PreparedStatement statement= connection.prepareStatement(sql);
+                    "where username = ?";
+             statement= connection.prepareStatement(sql);
             statement.setString(1,uesername);
-            if(Objects.nonNull(fullname))
-            {
-                statement.setString(2,fullname);
-            }
-            if(Objects.nonNull(email))
-            {
-                statement.setString(3,fullname);
-            }
-            if (Objects.nonNull(dePartment))
-            {
-                statement.setInt(3,dePartment.getId());
-            }
-            if(Objects.nonNull(position))
-            {
-                statement.setInt(4,position.getId());
-            }
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if(rs.next()) check= true;
         }catch (Exception e)
         {
             e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,rs);
         }
+
         return check;
     }
 
     @Override
     public boolean checkExitIdAndName(String name, Integer id) {
         boolean check = false;
+        Connection connection =null;
+        PreparedStatement statement=null;
+        ResultSet resultSet =null;
         try{
-            Connection connection=JBDcutils.getConnection();
+           connection=JBDcutils.getConnection();
             String sql= "select * from `account`\n" +
-                    "where username ? ;";
+                    "where username = ? ;";
             if(Objects.nonNull(id))
             {
-                sql+=" and account_id!= ?";
+                sql+=" and account_id != ?";
             }
-            PreparedStatement statement= connection.prepareStatement(sql);
+             statement= connection.prepareStatement(sql);
             statement.setString(1,name);
             if(Objects.nonNull(id))
             {
                 statement.setInt(2,id);
             }
-            ResultSet resultSet =statement.executeQuery();
-            if(resultSet.next())
-            {
-                check =true;
+            resultSet =statement.executeQuery();
+            if(resultSet.next()) {
+                check = true;
             }
         }catch (Exception e)
         {
             e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,resultSet);
         }
+
         return check;
     }
 
     @Override
     public boolean checkId(int id) {
         boolean check= false;
+        Connection connection=null;
+        PreparedStatement statement=null;
+        ResultSet rs=null;
         try {
-            Connection connection=JBDcutils.getConnection();
+            connection=JBDcutils.getConnection();
             String sql ="select * from `account`\n" +
-                    "where account_id ?; ";
-            PreparedStatement statement=connection.prepareStatement(sql);
+                    "where account_id = ?; ";
+            statement=connection.prepareStatement(sql);
             statement.setInt(1,id);
-            ResultSet rs= statement.executeQuery();
+            rs= statement.executeQuery();
             if(rs.next())
-            { check =true;
-                }
+            {
+                check =true;
+            }
+
         }catch (Exception e)
         {
             e.printStackTrace();
         }
+        finally {
+            JBDcutils.closeConnection(connection,statement,rs);
+        }
         return  check;
     }
 
+    @Override
+    public boolean checkEmail(String email) {
+        boolean check= false ;
+        Connection connection =null;
+        PreparedStatement statement=null;
+        ResultSet rs =null;
+        try{
+            connection =JBDcutils.getConnection();
+            String sql ="select * from `account`\n" +
+                    "where email = ?";
+            statement= connection.prepareStatement(sql);
+            statement.setString(1,email);
+            rs = statement.executeQuery();
+            if(rs.next()) check= true;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,rs);
+        }
+
+        return check;
+    }
 
 }

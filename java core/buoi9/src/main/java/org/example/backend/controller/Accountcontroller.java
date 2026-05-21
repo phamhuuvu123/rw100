@@ -36,14 +36,19 @@ public class Accountcontroller {
         List<Account> accounts =accountservice.findById(id);
         return accounts;
     }
-    public boolean check(String uesername, String fullname, String email, DePartment dePartment, Position position) {
-        return accountservice.check(uesername,fullname,email,dePartment,position);
-    }
+
     public boolean checkExitIdAndName(String name, Integer id) {
         return accountservice.checkExitIdAndName(name,id);
     }
     public boolean checkId(int id) {
         return accountservice.checkId(id);
     }
+    public boolean checkUsername(String name)
+    {
 
+        return accountservice.checkusername(name);
+    }
+    public boolean checkEmail(String email) {
+        return accountservice.checkEmail(email);
+    }
 }
