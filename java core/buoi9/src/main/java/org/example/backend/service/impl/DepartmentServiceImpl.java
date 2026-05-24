@@ -5,6 +5,10 @@ import org.example.backend.repository.impl.DepartmentRepositoryImpl;
 import org.example.backend.service.IDdepartmentservice;
 import org.example.entity.DePartment;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.nio.Buffer;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentServiceImpl implements IDdepartmentservice {
@@ -51,4 +55,33 @@ public class DepartmentServiceImpl implements IDdepartmentservice {
 
         return departmentRepository.checkExitIdAndName(name,id);
     }
+
+    @Override
+    public String importDepartmentFromCSV(String pathname) {
+        if(!pathname.endsWith(".csv"))
+        {
+            return "định dạng không đúng";
+        }
+        boolean checkCrete=false;
+        List<DePartment> dePartments = new ArrayList<>();
+        try(BufferedReader br =new BufferedReader(new FileReader(pathname)))
+        {
+            String line= br.readLine();
+            while ((line = br.readLine())!=null)
+            {
+                String[] fileds = line.split(",");
+                String department =fileds[0];
+                DePartment dep = new DePartment();
+                dePartments.add(dep);
+            }
+            checkCrete =departmentRepository.createListdepartment(dePartments);
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        };
+        return "Import thành công ";
+    }
+
 }

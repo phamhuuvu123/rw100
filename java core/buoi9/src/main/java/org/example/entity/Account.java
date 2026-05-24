@@ -80,6 +80,14 @@ public class Account {
         this.Uesername=uesername;
     }
 
+    public Account(String fullName, String uesername, String email, Position positionname, DePartment dePartmentname) {
+        this.fullName = fullName;
+        this.Uesername = uesername;
+        this.email = email;
+        this.positionname = positionname;
+        this.dePartmentname = dePartmentname;
+    }
+
     @Override
     public String toString() {
         return "Account{" +

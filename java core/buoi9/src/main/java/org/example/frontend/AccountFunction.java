@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class AccountFunction {
+public class    AccountFunction {
     private static Scanner scanner = new Scanner(System.in);
     private static  Accountcontroller accountcontroller = new Accountcontroller();
     private static Departmentcontroller departmentcontroller =new Departmentcontroller();
@@ -26,7 +26,8 @@ public class AccountFunction {
             System.out.println("3. Update Account ");
             System.out.println("4. Xóa Account");
             System.out.println("5. Tìm kiếm Account ");
-            System.out.println("6. Thoát");
+            System.out.println("6. import tu file ");
+            System.out.println("7. Thoát");
 
             String choice = scanner.nextLine();
             switch (choice) {
@@ -47,13 +48,26 @@ public class AccountFunction {
                    findAccoutById();
                     break;
                 case "6":
+                this.impotrAccountFromCSV();
+                break;
+                case "7":
                     return;
                 default:
                     System.out.println("Chọn sai, chọn lại!");
-
             }
         }
     }
+    public  void impotrAccountFromCSV()
+    {
+        System.out.println("===import file CSV===");
+        System.out.println("nhâp đường dẫn file ");
+        String pathname=scanner.nextLine();
+        String mesege = accountcontroller.importAccountFromCSV(pathname);
+        //C:\Users\HP\Desktop\rw100\csv\input_account.cvs.csv
+        System.out.println(mesege);
+
+    }
+
     public void showAccount(List<Account> Acount) {
 
         for (Account accounts : Acount) {

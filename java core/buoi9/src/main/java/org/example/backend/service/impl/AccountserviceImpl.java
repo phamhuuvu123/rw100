@@ -6,7 +6,13 @@ import org.example.backend.service.IAccountservice;
 import org.example.entity.Account;
 import org.example.entity.DePartment;
 import org.example.entity.Position;
+import org.example.utlis.JBDcutils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountserviceImpl implements IAccountservice {
@@ -57,5 +63,47 @@ public class AccountserviceImpl implements IAccountservice {
     public boolean checkEmail(String email) {
         return accountRepository.checkEmail(email);
     }
+
+    @Override
+    public String importAccountFromCSV(String pathname) {
+        if(!pathname.endsWith(".csv"))
+        {
+            return "định dạng không đúng";
+        }
+        boolean checkCrete=false;
+        List<Account> accounts = getAccounts();
+        try(BufferedReader br =new BufferedReader(new FileReader(pathname)))
+        {
+            String line= br.readLine();
+            while ((line = br.readLine())!=null)
+            {
+                String[] fileds = line.split(",");
+                String username =fileds[0];
+                String fullname= fileds[1];
+                String email= fileds[2];
+                int departmentId = Integer.parseInt(fileds[3]);
+                int positionId = Integer.parseInt(fileds[4]);
+                DePartment department = new DePartment(departmentId, null);
+                Position position = new Position(positionId, null);
+                Account account1 = new Account(fullname,username,email,position,department);
+                accounts.add(account1);
+            }
+            checkCrete = accountRepository.createlistAccount(accounts);
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return "Import thành công ";
+
+    }
+
+    private static List<Account> getAccounts() {
+        List<Account> accounts =new ArrayList<>();
+        return accounts;
+    }
+
+
 
 }

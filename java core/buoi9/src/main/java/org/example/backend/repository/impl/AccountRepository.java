@@ -284,4 +284,33 @@ public class AccountRepository implements IAccountRepository {
         return check;
     }
 
+    @Override
+    public boolean createlistAccount(List<Account> accountList) {
+        Connection connection=null;
+        PreparedStatement statement= null;
+        try{
+            connection = JBDcutils.getConnection();
+            String sql="insert into `account`(email,username,full_name,department_id,position_id)\n" +
+                    "values (?, ?,?,?,?)";
+            statement = connection.prepareStatement(sql);
+            for (Account acc : accountList) {
+
+                statement.setString(1,acc.getEmail() );
+                statement.setString(2,acc.getUesername());
+                statement.setString(3,acc.getFullName());
+                statement.setInt(4,acc.getDePartmentname().getId());
+                statement.setInt(5,acc.getPositionname().getId());
+                statement.addBatch();
+            }
+            statement.executeBatch();
+         return  true;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection,statement,null);
+        }
+        return false;
+    }
+
 }

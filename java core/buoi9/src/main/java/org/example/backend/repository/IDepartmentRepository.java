@@ -11,4 +11,5 @@ public interface IDepartmentRepository {
     boolean updateDepartment(int id, String name);
     boolean checkExitId(Integer id);
     boolean checkExitIdAndName(String name,Integer id);
+    boolean createListdepartment(List<DePartment> dePartments);
 }

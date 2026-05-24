@@ -17,4 +17,6 @@ public interface IAccountservice {
     boolean checkId(int id);
     boolean checkusername (String uesername);
     boolean checkEmail(String email);
+    String importAccountFromCSV(String pathname);
+
 }

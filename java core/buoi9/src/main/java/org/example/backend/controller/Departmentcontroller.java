@@ -39,4 +39,9 @@ public class Departmentcontroller {
     {
         return  departmentService.checkExitIdAndName(name,id);
     }
+    public String importdepartmentFromCSV(String pathname)
+    {
+        return departmentService.importDepartmentFromCSV(pathname);
+    }
+
 }

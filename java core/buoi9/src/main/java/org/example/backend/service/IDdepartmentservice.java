@@ -11,4 +11,6 @@ public interface IDdepartmentservice {
     boolean updateDepartment(int id, String name);
     boolean checkExitId(Integer id);
     boolean checkExitIdAndName(String name,Integer id);
+    String importDepartmentFromCSV(String pathname);
+
 }

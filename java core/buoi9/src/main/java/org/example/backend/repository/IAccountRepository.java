@@ -17,4 +17,5 @@ public interface IAccountRepository {
     boolean checkExitIdAndName(String name,Integer id);
     boolean checkId(int id);
     boolean checkEmail(String email);
+    boolean createlistAccount(List<Account>accountList);
 }

@@ -51,4 +51,8 @@ public class Accountcontroller {
     public boolean checkEmail(String email) {
         return accountservice.checkEmail(email);
     }
+    public String importAccountFromCSV(String pathname) {
+        return accountservice.importAccountFromCSV(pathname);
+    }
+
 }
