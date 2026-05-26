@@ -5,6 +5,10 @@ public  class DePartment {
     private String name;
     public DePartment(){}
 
+    public DePartment(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

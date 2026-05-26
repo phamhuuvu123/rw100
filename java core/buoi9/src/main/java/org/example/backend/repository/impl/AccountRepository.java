@@ -11,9 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class AccountRepository implements IAccountRepository {
     @Override
@@ -311,6 +309,76 @@ public class AccountRepository implements IAccountRepository {
             JBDcutils.closeConnection(connection,statement,null);
         }
         return false;
+    }
+
+    @Override
+    public Map<String, Account> mapByUesrname() {
+        Connection connection =null;
+        Statement statement=null;
+        ResultSet rs = null;
+        Map<String,Account> accountMap = new HashMap<>();
+        try {
+            connection = JBDcutils.getConnection();
+            // b2: lấy dữ liệu từ bảng department
+            String sql = "select * from account;";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sql);// thực thi câu lệnh sql và gán bảng trả ra vào ResultSet rs
+            List<Account> accounts= new ArrayList<>();// lưu lại dữ liệu lấy từ DB
+            while (rs.next()) {// lặp qua qua từng dòng của rs
+                int id1= rs.getInt("account_id");
+                String nameEmail=rs.getString("email");
+                String username1 =rs.getString("username");
+                String fullName =rs.getString("full_name");
+                DePartment dep = new DePartment(
+                        rs.getInt("department_id"), null);
+                Position position= new Position(
+                        rs.getInt("position_id"), null);
+                Account ac =new Account(id1,fullName,username1,nameEmail,position,dep);
+                accountMap.put(username1,ac);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Kết nối DB ko thành công");
+            e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection, statement, rs );
+        }
+        return accountMap;
+    }
+
+    @Override
+    public Map<String, Account> mapByemail() {
+        Connection connection =null;
+        Statement statement=null;
+        ResultSet rs = null;
+        Map<String,Account> accountMap = new HashMap<>();
+        try {
+            connection = JBDcutils.getConnection();
+            // b2: lấy dữ liệu từ bảng department
+            String sql = "select * from account;";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sql);// thực thi câu lệnh sql và gán bảng trả ra vào ResultSet rs
+            List<Account> accounts= new ArrayList<>();// lưu lại dữ liệu lấy từ DB
+            while (rs.next()) {// lặp qua qua từng dòng của rs
+                int id1= rs.getInt("account_id");
+                String nameEmail=rs.getString("email");
+                String username1 =rs.getString("username");
+                String fullName =rs.getString("full_name");
+                DePartment dep = new DePartment(
+                        rs.getInt("department_id"), null);
+                Position position= new Position(
+                        rs.getInt("position_id"), null);
+                Account ac =new Account(id1,fullName,username1,nameEmail,position,dep);
+                accountMap.put(nameEmail,ac);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Kết nối DB ko thành công");
+            e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection, statement, rs );
+        }
+        return accountMap;
     }
 
 }

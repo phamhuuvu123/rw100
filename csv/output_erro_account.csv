@@ -1,0 +1,3 @@
+email,username,full_name,department_id,position_id,error_message
+uesername4,full_name4,email4@gmail.com,1,2,tên uesrname đã tồn tại|email đã tồn tại
+uesername6,,,100,2,fullname không được để trống|email không được để trống|phòng ban không tồn tại

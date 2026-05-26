@@ -3,13 +3,15 @@ package org.example.backend.service.impl;
 import org.example.backend.repository.IDepartmentRepository;
 import org.example.backend.repository.impl.DepartmentRepositoryImpl;
 import org.example.backend.service.IDdepartmentservice;
+import org.example.dto.ImportErro;
 import org.example.entity.DePartment;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class DepartmentServiceImpl implements IDdepartmentservice {
     private IDepartmentRepository departmentRepository = new DepartmentRepositoryImpl();
@@ -58,30 +60,93 @@ public class DepartmentServiceImpl implements IDdepartmentservice {
 
     @Override
     public String importDepartmentFromCSV(String pathname) {
+        File filea =new File(pathname);
+        if(!filea.exists())
+        {
+            System.out.println("file không tồn tài");
+        }
         if(!pathname.endsWith(".csv"))
         {
             return "định dạng không đúng";
         }
         boolean checkCrete=false;
+        List<ImportErro> importErros =new ArrayList<>();
         List<DePartment> dePartments = new ArrayList<>();
+        Map<String,DePartment> mapByname= departmentRepository.mapByname();
         try(BufferedReader br =new BufferedReader(new FileReader(pathname)))
         {
             String line= br.readLine();
             while ((line = br.readLine())!=null)
             {
-                String[] fileds = line.split(",");
-                String department =fileds[0];
-                DePartment dep = new DePartment();
-                dePartments.add(dep);
+                this.validation(line,mapByname,dePartments,importErros);
             }
-            checkCrete =departmentRepository.createListdepartment(dePartments);
-        }
+             departmentRepository.createListdepartment(dePartments);
+                String pathError="C:\\Users\\HP\\Desktop\\rw100\\csv\\output_error_department.csv";
+                this.exportFileCsv(importErros,pathError);
 
+        }
         catch (Exception e)
         {
             e.printStackTrace();
         };
-        return "Import thành công ";
+        String message ="";
+        if(importErros.isEmpty())
+        {
+            message="Import thành công";
+        }
+        if(dePartments.isEmpty())
+        {
+            message="Import không thành công,đã xuất file lỗi //C:\\Users\\HP\\Desktop\\rw100\\csv\\output_error_department.csv";
+        }
+        if(!importErros.isEmpty()&&!dePartments.isEmpty())
+        {
+         message="import thành công " +dePartments.size()+", phòng ban "+ "đã xuất ra lỗi ở file//\"C:\\Users\\HP\\Desktop\\rw100\\csv\\output_erros_department\"";
+        }
+        return message;
     }
 
+    public void exportFileCsv(List<ImportErro> importErros,String pathError)
+    {
+        try{
+
+            BufferedWriter bw= new BufferedWriter( new FileWriter(pathError));
+            bw.write("department_name,error_message");
+            bw.newLine();
+            for(ImportErro erros:importErros)
+            {
+                String ln= erros.getLine()+","+String.join("|",erros.getMessage());
+                bw.write(ln);
+                bw.newLine();
+            }
+            bw.flush();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void validation(String line,Map<String,DePartment> mapByname,List<DePartment> dePartments,
+                            List<ImportErro> importErro)
+    {
+        List<String> errors = new ArrayList<>();
+        String[] fileds = line.split(",");
+        String departmentName =fileds[0];
+        if(Objects.isNull(departmentName)||departmentName.trim().isEmpty())
+        { errors.add(" tên phòng ban không được để trống");
+        }else if(departmentName.length()>100)
+        {
+            errors.add("tên phòng ban quá dài");
+        }else if(mapByname.get(departmentName)!=null){
+            errors.add("tên phòng ban đã tồn tại");
+        }
+
+        if(errors.isEmpty())
+        {
+            DePartment dep = new DePartment(departmentName);
+            dePartments.add(dep);
+            mapByname.put(departmentName,dep);
+        }else {
+            ImportErro  importErro1 = new ImportErro(line,errors);
+            importErro.add(importErro1);
+        }
+    }
 }

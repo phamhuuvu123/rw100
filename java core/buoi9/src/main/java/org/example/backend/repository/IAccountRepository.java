@@ -5,6 +5,7 @@ import org.example.entity.DePartment;
 import org.example.entity.Position;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IAccountRepository {
     List<Account> findAll();
@@ -18,4 +19,6 @@ public interface IAccountRepository {
     boolean checkId(int id);
     boolean checkEmail(String email);
     boolean createlistAccount(List<Account>accountList);
+    Map<String,Account> mapByUesrname();
+    Map<String,Account> mapByemail();
 }

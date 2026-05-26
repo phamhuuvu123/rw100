@@ -104,7 +104,7 @@ public class DepartmentFunction {
                 System.out.println("id không hợp lệ");
                 continue;
             }
-            if (departmentcontroller.checkExitsId(id))
+            if (!departmentcontroller.checkExitsId(id))
             {
                 System.out.println("id không tồn tại");
                 continue;

@@ -3,6 +3,7 @@ package org.example.backend.repository;
 import org.example.entity.DePartment;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IDepartmentRepository {
     List<DePartment> findAll();
@@ -12,4 +13,5 @@ public interface IDepartmentRepository {
     boolean checkExitId(Integer id);
     boolean checkExitIdAndName(String name,Integer id);
     boolean createListdepartment(List<DePartment> dePartments);
+    Map<String,DePartment> mapByname();
 }

@@ -5,9 +5,7 @@ import org.example.entity.DePartment;
 import org.example.utlis.JBDcutils;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class DepartmentRepositoryImpl implements IDepartmentRepository {
 
@@ -16,7 +14,6 @@ public class DepartmentRepositoryImpl implements IDepartmentRepository {
         List<DePartment> departments = new ArrayList<>();// lưu lại dữ liệu lấy từ DB
         try {
             // b1: kết nối đến DB
-
             Connection connection = JBDcutils.getConnection();
             // b2: lấy dữ liệu từ bảng department
             String sql = "select * from department;";
@@ -163,12 +160,42 @@ public class DepartmentRepositoryImpl implements IDepartmentRepository {
             return true;
         }catch ( Exception e)
         {
-            e.printStackTrace();
+//            e.printStackTrace();
         }finally {
             JBDcutils.closeConnection(connection,preparedStatement,null);
         }
 
         return false;
+    }
+
+    @Override
+    public Map<String, DePartment> mapByname() {
+        // lưu lại dữ liệu lấy từ DB
+        Connection connection =null;
+        Statement statement=null;
+        ResultSet rs = null;
+        Map<String,DePartment> mapByname = new HashMap<>();
+        try {
+            connection = JBDcutils.getConnection();
+            // b2: lấy dữ liệu từ bảng department
+            String sql = "select * from department;";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sql);// thực thi câu lệnh sql và gán bảng trả ra vào ResultSet rs
+            List<DePartment> dePartments= new ArrayList<>();// lưu lại dữ liệu lấy từ DB
+            while (rs.next()) {// lặp qua qua từng dòng của rs
+                int id = rs.getInt("department_id");// lấy giá trị từ  department_id
+                String name = rs.getString("department_name");//lấy giá trị từ  department_name
+                DePartment dep = new DePartment(id, name);
+                mapByname.put(name,dep);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Kết nối DB ko thành công");
+            e.printStackTrace();
+        }finally {
+            JBDcutils.closeConnection(connection, statement, rs );
+        }
+        return mapByname;
     }
 
 
