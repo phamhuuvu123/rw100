@@ -86,103 +86,11 @@ public class AccountserviceImpl implements IAccountservice {
         {
             String line= br.readLine();
             while ((line = br.readLine())!=null)
-            {
-                List<String> erros = new ArrayList<>();
-                String[] fileds = line.split(",");
-                String username =fileds[0];
-                if(Objects.isNull(username)||username.trim().isEmpty())
-                {
-                    erros.add("username không để trống");
-                }else if(username.length()>100){
-                    erros.add("tên  quá dài");
-                }else if(mapByUserName.get(username)!=null)
-                {
-                    erros.add("tên uesrname đã tồn tại");
-                }
-                String fullname= fileds[1];
-                if(Objects.isNull(fullname)||fullname.trim().isEmpty())
-                { erros.add("fullname không được để trống");
-                }else if(fullname.length()>100)
-                {
-                    erros.add("fullname quá dài");
-                }
-                String email= fileds[2];
-//                email =ScannerUtils.inputEmail();
-                if(Objects.isNull(email)||email.trim().isEmpty())
-                {
-                    erros.add("email không được để trống");
-                }else if(mapByEmail.get(email)!=null){
-                        erros.add("email đã tồn tại");
-                }
-                int departmentId = Integer.parseInt(fileds[3]);
-                int positionId = Integer.parseInt(fileds[4]);
-                DepartmentRepositoryImpl departmentRepository = new DepartmentRepositoryImpl();
-                PositionRepositoryImpl positionRepository = new PositionRepositoryImpl();
-                List<DePartment> dePartments = departmentRepository.findAll();
-                boolean checkde = false;
-                if(Objects.isNull(departmentId)){
-                    erros.add("nhập lại id department không để trống");
-                }
-                for(DePartment dep :dePartments)
-                {
-                    if(dep.getId()==departmentId)
-                    {   checkde=true;
-                        break;
-                    }
-                }
-                DePartment department =new DePartment();
-                if(checkde==false)
-                {
-                    erros.add("phòng ban không tồn tại");
-                }else {
-                 department =new DePartment(departmentId,null);
-                }
-                if(Objects.isNull(positionId)){
-                    erros.add("nhập lại id không để trống");
-                }
-                List<Position> positions = positionRepository.findAll();
-                boolean checkPO=false;
-                for(Position po :positions)
-                {
-                    if(po.getId()==positionId)
-                    {
-                        checkPO=true;
-                        break;
-                    }
-                }
-                Position position = new Position();
-
-                if(checkPO==false){
-                  erros.add("chức vụ không tồn tại");
-                }else {
-                     position = new Position(positionId, null);
-                }
-            if(erros.isEmpty()){
-                Account account1 = new Account(fullname,username,email,position,department);
-                accounts.add(account1);
-            }else {
-                ImportErro erro =new ImportErro(line,erros);
-                importErro.add(erro);
-            }
-
+            { this.validationaccount(line,mapByUserName,mapByEmail,importErro,accounts);
             }
              accountRepository.createlistAccount(accounts);
             String patherro="C:\\Users\\HP\\Desktop\\rw100\\csv\\output_erro_account.csv";
-            try {
-                BufferedWriter bw= new BufferedWriter( new FileWriter(patherro));
-                bw.write("email,username,full_name,department_id,position_id,error_message");
-                bw.newLine();
-                for(ImportErro erros:importErro)
-                {
-                    String ln= erros.getLine()+","+String.join("|",erros.getMessage());
-                    bw.write(ln);
-                    bw.newLine();
-                }
-                bw.flush();
-            }catch (Exception e)
-            {
-                e.printStackTrace();;
-            }
+            this.exportfilecsvAccount(importErro,patherro);
         }
 
         catch (Exception e)
@@ -204,12 +112,105 @@ public class AccountserviceImpl implements IAccountservice {
         return message;
 
     }
-
-    private static List<Account> getAccounts() {
-        List<Account> accounts =new ArrayList<>();
-        return accounts;
+    public void exportfilecsvAccount(List<ImportErro> importErro,String patherro)
+    {
+        try {
+            BufferedWriter bw= new BufferedWriter( new FileWriter(patherro));
+            bw.write("email,username,full_name,department_id,position_id,error_message");
+            bw.newLine();
+            for(ImportErro erros:importErro)
+            {
+                String ln= erros.getLine()+","+String.join("|",erros.getMessage());
+                bw.write(ln);
+                bw.newLine();
+            }
+            bw.flush();
+        }catch (Exception e)
+        {
+            e.printStackTrace();;
+        }
     }
+    public void validationaccount (String line ,Map<String,Account>MapByusername,Map<String,Account> MapByemail
+    ,List <ImportErro> importErros,List<Account> accounts){
+        List<String> erros = new ArrayList<>();
+        String[] fileds = line.split(",");
+        String username =fileds[0];
+        if(Objects.isNull(username)||username.trim().isEmpty())
+        {
+            erros.add("username không để trống");
+        }else if(username.length()>100){
+            erros.add("tên  quá dài");
+        }else if(MapByusername.get(username)!=null)
+        {
+            erros.add("tên uesrname đã tồn tại");
+        }
+        String fullname= fileds[1];
+        if(Objects.isNull(fullname)||fullname.trim().isEmpty())
+        { erros.add("fullname không được để trống");
+        }else if(fullname.length()>100)
+        {
+            erros.add("fullname quá dài");
+        }
+        String email= fileds[2];
+//                email =ScannerUtils.inputEmail();
+        if(Objects.isNull(email)||email.trim().isEmpty())
+        {
+            erros.add("email không được để trống");
+        }else if(MapByemail.get(email)!=null){
+            erros.add("email đã tồn tại");
+        }
+        int departmentId = Integer.parseInt(fileds[3]);
+        int positionId = Integer.parseInt(fileds[4]);
+        DepartmentRepositoryImpl departmentRepository = new DepartmentRepositoryImpl();
+        PositionRepositoryImpl positionRepository = new PositionRepositoryImpl();
+        List<DePartment> dePartments = departmentRepository.findAll();
+        boolean checkde = false;
+        if(Objects.isNull(departmentId)){
+            erros.add("nhập lại id department không để trống");
+        }
+        for(DePartment dep :dePartments)
+        {
+            if(dep.getId()==departmentId)
+            {   checkde=true;
+                break;
+            }
+        }
+        DePartment department =new DePartment();
+        if(checkde==false)
+        {
+            erros.add("phòng ban không tồn tại");
+        }else {
+            department =new DePartment(departmentId,null);
+        }
+        if(Objects.isNull(positionId)){
+            erros.add("nhập lại id không để trống");
+        }
+        List<Position> positions = positionRepository.findAll();
+        boolean checkPO=false;
+        for(Position po :positions)
+        {
+            if(po.getId()==positionId)
+            {
+                checkPO=true;
+                break;
+            }
+        }
+        Position position = new Position();
 
+        if(checkPO==false){
+            erros.add("chức vụ không tồn tại");
+        }else {
+            position = new Position(positionId, null);
+        }
+        if(erros.isEmpty()){
+            Account account1 = new Account(fullname,username,email,position,department);
+            accounts.add(account1);
+        }else {
+            ImportErro erro =new ImportErro(line,erros);
+            importErros.add(erro);
+        }
+
+    }
 
 
 }
