@@ -2,24 +2,22 @@ package org.example.dto;
 
 import java.util.List;
 
-public class ImportErro {
-    private String line;
+public class ImportErro<T> {
+    private T line;
     private List<String> message;
-    public ImportErro()
-    {
 
+    public ImportErro(){}
+    public ImportErro(T line, List<String> message) {
+        this.line = line;
+        this.message = message;
     }
-    public String getLine() {
+
+    public T getLine() {
         return line;
     }
 
-    public void setLine(String line) {
+    public void setLine(T line) {
         this.line = line;
-    }
-
-    public ImportErro(String line, List<String> message) {
-        this.line = line;
-        this.message = message;
     }
 
     public List<String> getMessage() {

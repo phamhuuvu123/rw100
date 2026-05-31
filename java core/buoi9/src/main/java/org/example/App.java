@@ -19,7 +19,9 @@ public class App
 
 {
     public static void main( String[] args ) throws ClassNotFoundException {
- AccountFunction accountFunction = new AccountFunction();
- accountFunction.run();
+//DepartmentFunction departmentFunction =new DepartmentFunction();
+//departmentFunction.run();
+        AccountFunction accountFunction = new AccountFunction();
+        accountFunction.run();
     }
 }

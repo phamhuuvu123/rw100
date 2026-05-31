@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class ScannerUtils {
     private static   Scanner scanner = new Scanner(System.in);
+
     public static String inputstring()
     {
         String text;

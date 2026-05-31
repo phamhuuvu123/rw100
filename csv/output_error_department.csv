@@ -1,2 +1,4 @@
-department_name,error_message
-thầy giáo,tên phòng ban đã tồn tại
+department_name,err6or_message
+DepartmentCSV{departmentname='phòng ban1'},tên phòng ban đã tồn tại
+DepartmentCSV{departmentname='phòng ban1 '},tên phòng ban đã tồn tại
+DepartmentCSV{departmentname='phong ban2'},tên phòng ban đã tồn tại

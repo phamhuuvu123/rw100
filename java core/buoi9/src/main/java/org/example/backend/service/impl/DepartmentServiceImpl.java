@@ -3,7 +3,9 @@ package org.example.backend.service.impl;
 import org.example.backend.repository.IDepartmentRepository;
 import org.example.backend.repository.impl.DepartmentRepositoryImpl;
 import org.example.backend.service.IDdepartmentservice;
+import org.example.dto.CSV.DepartmentCSV;
 import org.example.dto.ImportErro;
+import org.example.dto.context.DepartmentContext;
 import org.example.entity.DePartment;
 
 import java.io.*;
@@ -60,73 +62,15 @@ public class DepartmentServiceImpl implements IDdepartmentservice {
 
     @Override
     public String importDepartmentFromCSV(String pathname) {
-        File filea =new File(pathname);
-        if(!filea.exists())
-        {
-            System.out.println("file không tồn tài");
-        }
-        if(!pathname.endsWith(".csv"))
-        {
-            return "định dạng không đúng";
-        }
-        boolean checkCrete=false;
-        List<ImportErro> importErros =new ArrayList<>();
-        List<DePartment> dePartments = new ArrayList<>();
-        Map<String,DePartment> mapByname= departmentRepository.mapByname();
-        try(BufferedReader br =new BufferedReader(new FileReader(pathname)))
-        {
-            String line= br.readLine();
-            while ((line = br.readLine())!=null)
-            {
-                this.validation(line,mapByname,dePartments,importErros);
-            }
-             departmentRepository.createListdepartment(dePartments);
-                String pathError="C:\\Users\\HP\\Desktop\\rw100\\csv\\output_error_department.csv";
-                this.exportFileCsv(importErros,pathError);
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        };
-        String message ="";
-        if(importErros.isEmpty())
-        {
-            message="Import thành công";
-        }
-        if(dePartments.isEmpty())
-        {
-            message="Import không thành công,đã xuất file lỗi //C:\\Users\\HP\\Desktop\\rw100\\csv\\output_error_department.csv";
-        }
-        if(!importErros.isEmpty()&&!dePartments.isEmpty())
-        {
-         message="import thành công " +dePartments.size()+", phòng ban "+ "đã xuất ra lỗi ở file//\"C:\\Users\\HP\\Desktop\\rw100\\csv\\output_erros_department\"";
-        }
-        return message;
+     String pathError="C:\\Users\\HP\\Desktop\\rw100\\csv\\output_error_department.csv";
+    Map<String,DePartment> mapByname = departmentRepository.mapByname();
+    DepartmentContext context = new DepartmentContext(mapByname);
+    String message =this.importFileCSV(pathname,context,pathError);
+    return message;
     }
 
-    public void exportFileCsv(List<ImportErro> importErros,String pathError)
-    {
-        try{
-
-            BufferedWriter bw= new BufferedWriter( new FileWriter(pathError));
-            bw.write("department_name,error_message");
-            bw.newLine();
-            for(ImportErro erros:importErros)
-            {
-                String ln= erros.getLine()+","+String.join("|",erros.getMessage());
-                bw.write(ln);
-                bw.newLine();
-            }
-            bw.flush();
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-    public void validation(String line,Map<String,DePartment> mapByname,List<DePartment> dePartments,
-                            List<ImportErro> importErro)
-    {
+    @Override
+    public void validation(String line, DepartmentContext Context, List<DePartment> entities, List<ImportErro<DepartmentCSV>> importErros) {
         List<String> errors = new ArrayList<>();
         String[] fileds = line.split(",");
         String departmentName =fileds[0];
@@ -135,18 +79,43 @@ public class DepartmentServiceImpl implements IDdepartmentservice {
         }else if(departmentName.length()>100)
         {
             errors.add("tên phòng ban quá dài");
-        }else if(mapByname.get(departmentName)!=null){
+        }else if(Context.getMapBydepartmentName().get(departmentName)!=null){
             errors.add("tên phòng ban đã tồn tại");
         }
 
         if(errors.isEmpty())
         {
             DePartment dep = new DePartment(departmentName);
-            dePartments.add(dep);
-            mapByname.put(departmentName,dep);
+            entities.add(dep);
+            Context.getMapBydepartmentName().put(departmentName,dep);
         }else {
-            ImportErro  importErro1 = new ImportErro(line,errors);
-            importErro.add(importErro1);
+            DepartmentCSV csv = new DepartmentCSV(departmentName);
+            ImportErro  importErro1 = new ImportErro(csv,errors);
+            importErros.add(importErro1);
         }
+    }
+
+    @Override
+    public void savsAll(List<DePartment> entites) {
+        departmentRepository.createListdepartment(entites);
+    }
+
+    @Override
+    public void exportFileError(List<ImportErro<DepartmentCSV>> importErros, String partError) {
+        if(!importErros.isEmpty())
+        try{
+                BufferedWriter bw = new BufferedWriter(new FileWriter(partError));
+                bw.write("department_name,err6or_message");
+                bw.newLine();
+                for (ImportErro erros : importErros) {
+                    String ln = erros.getLine() + "," + String.join("|", erros.getMessage());
+                    bw.write(ln);
+                    bw.newLine();
+                }
+                bw.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
     }
 }
