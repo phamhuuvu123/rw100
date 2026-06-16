@@ -53,7 +53,7 @@ public class DepartmentRepositoryImpl implements IDepartmentRepository {
     public boolean deleteDepartment(int id) {
         try{
             Connection connection = JBDcutils.getConnection();
-            String sql="delete from department where department_id = ?;";
+            String sql="delete from Student where student_id = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1,id);
             int c=statement.executeUpdate();
