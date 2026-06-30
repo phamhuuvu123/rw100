@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+
+<div class="container">
+
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+   </form>
+   
+   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    
+    <div class="form-group">
+        <label for="input" class="col-sm-2 control-label">:</label>
+        <div class="col-sm-10">
+            <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+        </div>
+    </div>
+    
+    <div class="form-group" >
+        <label for="inputUesrname" class="col-sm-2 control-label">Uesrname:</label>
+        <div class="col-sm-10">
+            <input type="text" name="Uesrname" id="inputUesrname" class="form-control" value="" required="required" pattern="" title="">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="inputfullname" class="col-sm-2 control-label">fullname:</label>
+        <div class="col-sm-10">
+            <input type="text" name="fullname" id="inputfullname" class="form-control" value="" required="required" pattern="" title="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputAge" class="col-sm-2 control-label">Age:</label>
+        <div class="col-sm-10">
+            <input type="number" name="Age" id="inputAge" class="form-control" value="" min="6" max="" step="" required="required" title="">
+        </div>
+    </div>
+    
+   </div>
+   
+   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div class="col-sm-10">
+            <button type="button" class="btn btn-default" onclick="Oncreate()">Create</button>
+        </div>
+       
+        <div class="col-sm-10"> 
+            <button type="button" class="btn btn-default" onclick="onUpdate()">Update</button>
+        </div>
+        
+     </div>
+</div> 
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> id</th>
+            <th> avartar</th>
+            <th> Uesrname</th>
+            <th> fullname</th>
+            <th> age</th>
+            <th>acction</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+<script src ="demo.js">
+    
+</script>
+</html>
