@@ -9,4 +9,5 @@ public interface IDepartmentRepository {
     Department findId(Integer id);
     void create(String name);
     void update(String name,Integer id);
+    void delete(Integer id);
 }

@@ -1,6 +1,7 @@
 package com.vti.Repository.impl;
 
 import com.vti.Repository.IDepartmentRepository;
+import com.vti.enitity.Account;
 import com.vti.enitity.Department;
 import com.vti.utlis.HibernateUtlis;
 import org.hibernate.Session;
@@ -9,6 +10,8 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.vti.utlis.HibernateUtlis.sessionFactory;
 
 public class DepartmentRepositoryimpl implements IDepartmentRepository {
     private final SessionFactory  sessionFactory = HibernateUtlis.sessionFactory;
@@ -58,6 +61,18 @@ public class DepartmentRepositoryimpl implements IDepartmentRepository {
         try{
             Department department =session.find(Department.class,id);
             department.setName(name);
+            session.getTransaction().commit();
+        }finally {
+            session.getTransaction().rollback();
+        }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Session session = sessionFactory.openSession();
+        try{
+            com.vti.enitity.Department department =  session.find(Department.class,id);
+            session.remove(department);
             session.getTransaction().commit();
         }finally {
             session.getTransaction().rollback();

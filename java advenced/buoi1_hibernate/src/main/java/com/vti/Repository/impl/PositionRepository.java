@@ -67,4 +67,16 @@ public class PositionRepository implements IPositionRepository {
         }
     }
 
+    @Override
+    public void deletePosition(Integer id) {
+        Session session = sessionFactory.openSession();
+        try{
+            com.vti.enitity.Position position =  session.find(Position.class,id);
+            session.remove(position);
+            session.getTransaction().commit();
+        }finally {
+            session.getTransaction().rollback();
+        }
+    }
+
 }

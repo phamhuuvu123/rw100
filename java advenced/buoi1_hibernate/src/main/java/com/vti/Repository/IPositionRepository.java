@@ -9,4 +9,5 @@ public interface IPositionRepository {
     Position findId(Integer id);
     void createPosition(String name);
     void updatePosition(String name, Integer id);
+    void deletePosition(Integer id);
 }
