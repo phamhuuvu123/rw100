@@ -1,0 +1,8 @@
+$kind: http-request
+name: create
+url: http://localhost:8080/api/v1/departments
+method: POST
+body:
+  type: json
+  content: "{\r\n   \"name\": \"helloo\"\r\n}"
+order: 5000
