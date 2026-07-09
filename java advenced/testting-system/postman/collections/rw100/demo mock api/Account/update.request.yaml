@@ -1,4 +1,20 @@
 $kind: http-request
-url: ""
-method: GET
+name: update
+url: http://localhost:8080/api/v1/accounts/6
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \       \r
+
+    \        \"fullName\": \"Võ Hoàng Khánh\",\r
+
+    \        \"username\": \"khanh\",\r
+
+    \        \"departmentName\": \"Kỹ thuật\",\r
+
+    \        \"positionName\": \"DEV\"\r
+
+    \    }"
 order: 3338921239983573

@@ -1,6 +1,8 @@
 package com.vti.controller;
 
+import com.vti.dto.AccountDTO;
 import com.vti.entity.Account;
+import com.vti.form.AccountCreateForm;
 import com.vti.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,13 +17,13 @@ public class AccountController {
     @Autowired
     private IAccountService iAccountService;
     @GetMapping
-    public ResponseEntity<List<Account>> findAll(){
-        List<Account>  accounts = iAccountService.findAll();
+    public ResponseEntity<List<AccountDTO>> findAll(){
+        List<AccountDTO>  accounts = iAccountService.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
     @GetMapping("/{idAccount}")
-    public ResponseEntity<Account> findById(@PathVariable(name="idAccount") Integer id){
-        Account account = iAccountService.findById(id);
+    public ResponseEntity<AccountDTO> findById(@PathVariable(name="idAccount") Integer id){
+        AccountDTO account = iAccountService.findById(id);
         return new ResponseEntity<>(account,HttpStatus.OK);
     }
     @DeleteMapping("/{idDelete}")
@@ -31,13 +33,13 @@ public class AccountController {
         return new ResponseEntity<>("xoa thanh cong",HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody Account account)
+    public ResponseEntity<String> create(@RequestBody AccountCreateForm account)
     {
         iAccountService.create(account);
         return new ResponseEntity<>("tao moi thanh cong", HttpStatus.OK);
     }
     @PutMapping("/{idUpdate}")
-    public ResponseEntity<String> update(@RequestBody Account account,
+    public ResponseEntity<String> update(@RequestBody AccountCreateForm account,
                                          @PathVariable(name="idUpdate")Integer id)
     {
         iAccountService.update(account,id);

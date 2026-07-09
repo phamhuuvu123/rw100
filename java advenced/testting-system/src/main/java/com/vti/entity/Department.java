@@ -16,5 +16,4 @@ public class Department {
     private Integer id;
     @Column(name="department_name",nullable = false,unique = true,length = 100)
     private String name;
-
 }

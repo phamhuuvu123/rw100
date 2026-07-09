@@ -17,5 +17,5 @@ public class Position {
     private Integer id;
     @Column(name="position_name",unique = true,nullable = false,length = 100)
     @Enumerated(EnumType.STRING)
-    private position_name name;
+    private positionName name;
 }

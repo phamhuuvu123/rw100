@@ -17,13 +17,17 @@ public class Account {
     @Column(name="account_id")
     private Integer id;
     @Column(name="username",nullable = false,unique = true,length = 100)
-    private String userName;
+    private String username;
     @Column(name="email",nullable = false,unique = true,length = 100)
     private String email;
     @Column(name="full_name",nullable = false,unique = true,length = 100)
     private String fullName;
-    private String department;
+    @ManyToOne
+    @JoinColumn(name="department_id")
+    private Department department;
     @Column(name = "create_date",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dateTime;
-    private String positionname;
+    @ManyToOne
+    @JoinColumn(name="position_id")
+    private Position position;
 }

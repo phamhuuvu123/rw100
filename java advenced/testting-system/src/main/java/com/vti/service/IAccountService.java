@@ -1,17 +1,19 @@
 package com.vti.service;
 
+import com.vti.dto.AccountDTO;
 import com.vti.entity.Account;
+import com.vti.form.AccountCreateForm;
 
 import java.util.List;
 
 public interface IAccountService {
-    List<Account> findAll();
+    List<AccountDTO> findAll();
 
-    Account findById(Integer id);
+    AccountDTO findById(Integer id);
 
     void deleteById(Integer id);
 
-    void create(Account account);
+    void create(AccountCreateForm account);
 
-    void update(Account account, Integer id);
+    void update(AccountCreateForm account, Integer id);
 }
