@@ -15,7 +15,7 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="position_id")
     private Integer id;
-    @Column(name="position_name",unique = true,nullable = false,length = 100)
+    @Column(name="position_name",nullable = false,length = 100)
     @Enumerated(EnumType.STRING)
     private positionName name;
 }

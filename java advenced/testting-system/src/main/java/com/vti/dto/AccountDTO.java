@@ -16,4 +16,6 @@ public class AccountDTO {
     private String username;
     private String departmentName;
     private String positionName;
+    private Integer positionId;
+    private Integer departmentId;
 }

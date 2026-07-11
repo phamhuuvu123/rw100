@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<style>
+            /**********************
+    LIGHT THEME
+**********************/
+            body {
+                background: #f5f5f5;
+                color: #333;
+                transition: 0.3s;
+            }
+            /**********************
+    DARK THEME
+**********************/
+            body.dark-theme {
+                background: #1f1f1f;
+                color: #eee;
+            }
+            /* Legend */
+            body.dark-theme legend {
+                color: white;
+            }
+            /**********************
+        TABLE
+**********************/
+            body.dark-theme .table {
+                background: #2b2b2b;
+                color: #fff;
+            }
+            body.dark-theme .table thead {
+                background: #3a3a3a;
+            }
+            body.dark-theme .table > thead > tr > th {
+                border-bottom: 2px solid #555;
+            }
+            body.dark-theme .table > tbody > tr {
+                background: #2d2d2d;
+            }
+            body.dark-theme .table > tbody > tr:nth-child(even) {
+                background: #353535;
+            }
+            body.dark-theme .table-hover > tbody > tr:hover {
+                background: #444;
+            }
+            body.dark-theme .table > tbody > tr > td {
+                border-top: 1px solid #555;
+            }
+            /**********************
+        MODAL
+**********************/
+            body.dark-theme .modal-content {
+                background: #2d2d2d;
+                color: white;
+            }
+            body.dark-theme .modal-header {
+                border-bottom: 1px solid #555;
+            }
+            body.dark-theme .modal-footer {
+                border-top: 1px solid #555;
+            }
+            body.dark-theme .close {
+                color: white;
+                opacity: 1;
+            }
+            /**********************
+        INPUT
+**********************/
+            body.dark-theme .form-control {
+                background: #3a3a3a;
+                color: white;
+                border: 1px solid #666;
+            }
+            body.dark-theme .form-control:focus {
+                border-color: #4a90e2;
+            }
+            body.dark-theme .control-label {
+                color: white;
+            }
+            /**********************
+        BUTTON
+**********************/
+            body.dark-theme .btn-default {
+                background: #444;
+                color: white;
+                border-color: #666;
+            }
+            body.dark-theme .btn-default:hover {
+                background: #555;
+            }
+            /**********************
+        IMAGE
+**********************/
+            body.dark-theme img {
+                border-radius: 5px;
+            }
+            /**********************
+        SCROLLBAR
+**********************/
+            body.dark-theme::-webkit-scrollbar {
+                width: 10px;
+            }
+            body.dark-theme::-webkit-scrollbar-thumb {
+                background: #666;
+            }
+            body.dark-theme::-webkit-scrollbar-track {
+                background: #2d2d2d;
+            }
+        </style>.
+</head>
+
+<body class="dark-theme">
+    <div class="container">
+
+<button type="button" class="btn btn-default"
+onclick="changethem('light')">light</button>
+<button type="button" class="btn btn-default"
+onclick="changethem('dark')">dark</button>
+        <a class="btn btn-primary" data-toggle="modal" href='#modal-id' onclick="resetForm()">Create</a>
+        <div class="modal fade" id="modal-id">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Quan ly account</h4>
+                   
+                    <div class="modal-body">
+                        <div class="for m-group">
+                        </div>
+
+                        <form>
+
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+
+                                <div class="form-group">
+                                    <label for="inputavartar" class="col-sm-2 control-label">avartar:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="avartar" id="inputavartar" class="form-control"
+                                            value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputusername" class="col-sm-2 control-label">username:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="username" id="inputusername" class="form-control"
+                                            value="" required="required" pattern="" title="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputfullname" class="col-sm-2 control-label">fullname:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="fullname" id="inputfullname" class="form-control"
+                                            value="" required="required" pattern="" title="">
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label for="inputAge" class="col-sm-2 control-label">Age:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="Age" id="inputAge" class="form-control" value=""
+                                            min="6" max="" step="" required="required" title="">
+                                    </div>
+                                </div> -->
+                                
+                              
+                              <div class="form-group">
+                                <label for="inputemail" class="col-sm-2 control-label">email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" name="" id="inputemail" class="form-control" value="" required="required" title="">
+                                </div>
+                              </div>
+                              
+                                
+                                <div class="form-group">
+                                    <label for="inputDepartmentName" class="col-sm-2 control-label">DepartmentName:</label>
+                                    <div class="col-sm-10">
+                                        <select name="DepartmentName" id="inputDepartmentName" class="form-control" required="required">
+                                            <!-- <option value="">Bảo vệ</option>
+                                            <option value="">Sale</option>
+                                            <option value="">Marketting</option>
+                                            <option value=""></option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="inputPositioName" class="col-sm-2 control-label">PositioName:</label>
+                                    <div class="col-sm-10">
+                                        <select name="PositioName" id="inputPositioName" class="form-control" required="required">
+                                            <!-- <option value="">TEST</option>
+                                             <option value="">DEV</option>
+                                              <option value="">PM</option>
+                                               <option value="">SCRUM_MASTER</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submit">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>avartar</th>
+                <th>email</th>
+                <th>username</th>
+                <th>fullname</th>
+                <th>department name</th>
+                <th>position name</th>
+                <th>acction</th>
+
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+<script src="demo_ajax.js">
+
+</script>
+
+</html>

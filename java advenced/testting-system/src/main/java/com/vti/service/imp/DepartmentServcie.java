@@ -53,7 +53,7 @@ public class DepartmentServcie implements IDepartmentService {
         if(Objects.isNull(departmentupdate)){
             throw new RuntimeException("id not found");
         }else {
-            if(departmenRepository.existsByNameAndIdNot(departmentupdate,id)) {
+            if(departmenRepository.existsByNameAndIdNot(departmentupdate.getName(),id)) {
             throw new RuntimeException("Deparment da ton tai");
             }
             departmentupdate.setName(departmentDTO.getName());
@@ -63,8 +63,8 @@ public class DepartmentServcie implements IDepartmentService {
 
     @Override
     public void create(DepartmentDTO departmentDTO) {
-        boolean check = departmenRepository.existsByName(departmentDTO.getName());
-        if(check= true)
+        boolean check = departmenRepository.existsByNameAndIdNot(departmentDTO.getName(),null   );
+        if(check==true)
         {
             throw  new RuntimeException("Department already exits");
         }

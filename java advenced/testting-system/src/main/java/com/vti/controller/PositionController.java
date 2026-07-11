@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/positions")
+@CrossOrigin("*")
 public class PositionController {
     @Autowired
     private IPositionService positionService;
@@ -40,7 +41,7 @@ public class PositionController {
         positionService.deleteByid(id);
         return new ResponseEntity<>("xoa thanh cong",HttpStatus.OK);
     }
-    @PutMapping("/{idUpPos")
+    @PutMapping("/{idUpPos}")
     public ResponseEntity<String> Update(@RequestBody PositionDTO positionDTO ,
                                          @PathVariable(name = "idUpPos")Integer id)
     {

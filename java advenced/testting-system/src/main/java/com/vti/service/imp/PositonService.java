@@ -46,11 +46,12 @@ public class PositonService implements IPositionService {
 
     @Override
     public void create(PositionCreateOrUpdateForm position) {
-        boolean check = positionRepository.existsByName(position.getName());
-        if(check=true)
-        {
-            throw new RuntimeException("posion đã tồn tại");
-        }
+//        positionName name= positionName.valueOf(position.getName());
+//        boolean check = positionRepository.existsByName(name);
+//        if(check==true)
+//        {
+//            throw new RuntimeException("posion đã tồn tại");
+//        }
         Position pos = new Position();
         pos.setName(positionName.valueOf(position.getName()));
         positionRepository.save(pos);
@@ -63,12 +64,13 @@ public class PositonService implements IPositionService {
 
     @Override
     public void update(PositionDTO positionDTO, Integer id) {
-        boolean check = positionRepository.existsByName(positionDTO.getName());
-        if(check=true)
-        {
-            throw new RuntimeException("posion đã tồn tại");
-        }
-        Position pos = new Position();
+//        boolean check = positionRepository.existsByNameAndIdNot(positionDTO.getName(),id);
+//        if(check=true)
+//        {
+//            throw new RuntimeException("posion đã tồn tại");
+//        }
+        Position pos = positionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy position"));
         pos.setName(positionName.valueOf(positionDTO.getName()));
         positionRepository.save(pos);
     }
